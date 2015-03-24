@@ -19,7 +19,7 @@ makedepends=('git' 'make' 'libxml2' 'alsa-lib' 'gtk2' 'audiofile')
 
 build() {
   cd $srcdir/soundmodem
-  automake --add-missing
+  autoreconf -i
   ./configure --prefix=/usr
   make clean
   make
