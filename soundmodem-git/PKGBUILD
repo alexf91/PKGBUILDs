@@ -1,0 +1,36 @@
+# Maintainer: Alexander Fasching <fasching dot a91 at gmail dot com>
+# Based on PKGBUILD for soundmodem from AUR
+pkgname=soundmodem-git
+pkgver=0.18
+pkgrel=1
+pkgdesc="Multiplatform Soundcard Packet Radio Modem"
+url="://github.com/alexf91/soundmodem"
+license=('GPL2')
+source=('soundmodem.conf'
+        'git+https://github.com/alexf91/soundmodem.git')
+        
+md5sums=('78c7d69ee96e5152dbe10a3638bb816d'
+         'SKIP')
+arch=('i686' 'x86_64')
+backup=('etc/ax25/soundmodem.conf')
+depends=('audiofile' 'gtk2')
+conflicts=('soundmodem')
+makedepends=('git' 'make' 'libxml2' 'alsa-lib' 'gtk2' 'audiofile')
+
+build() {
+  cd $srcdir/soundmodem
+  automake --add-missing
+  ./configure --prefix=/usr
+  make clean
+  make
+}
+
+package() {
+  cd $srcdir/soundmodem
+  make install DESTDIR=$pkgdir
+
+  mkdir -p $pkgdir/etc/ax25
+  install -m 644 $srcdir/soundmodem.conf $pkgdir/etc/ax25/soundmodem.conf
+  mv $pkgdir/usr/sbin/soundmodem $pkgdir/usr/bin/soundmodem
+  rmdir $pkgdir/usr/sbin
+}
