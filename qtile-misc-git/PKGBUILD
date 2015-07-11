@@ -10,7 +10,6 @@ license=('MIT')
 depends=('qtile' 'python')
 makedepends=('python-setuptools' 'git')
 provides=('qtile-misc')
-conflicts=('qtile')
 source=('git://github.com/alexf91/qtile-misc.git')
 md5sums=('SKIP')
 
