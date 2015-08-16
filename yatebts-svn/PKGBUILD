@@ -1,0 +1,39 @@
+# Maintainer: Alexander Fasching <fasching DOT a91 AT gmail DOT com>
+
+pkgname=yatebts-svn
+pkgver=r525
+pkgrel=1
+pkgdesc="Next-generation telephony engine"
+arch=('i686' 'x86_64')
+url="http://yate.null.ro"
+license=('GPL')
+depends=('yate' 'speex' 'gsm' 'postgresql-libs' 'libmysqlclient' 'alsa-lib')
+source=("$pkgname::svn+http://voip.null.ro/svn/yatebts/trunk")
+options=(!makeflags)
+sha256sums=('SKIP')
+
+pkgver() {
+  cd $srcdir/$pkgname
+  local ver="$(svnversion)"
+  printf "r%s" "${ver//[[:alpha:]]}"
+}
+
+build() {
+  cd $srcdir/$pkgname
+  export LDFLAGS="${LDFLAGS//-Wl,--as-needed}"
+  ./autogen.sh
+  ./configure --prefix=/usr \
+              --sysconfdir=/etc \
+              --with-libpq \
+              --with-mysql \
+              --without-openh323 \
+              --enable-bladerf
+  make
+}
+
+package(){
+  cd $srcdir/${pkgname}
+  make DESTDIR=$pkgdir install
+}
+
+# vim:set ts=2 sw=2 et:
