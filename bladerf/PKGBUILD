@@ -8,7 +8,7 @@
 pkgname=bladerf
 _libver=1.4.3
 _CLIver=1.2.1
-_FPGAver=0.3.4
+_FPGAver=0.4.1
 _firmver=1.8.0
 pkgver=2015.07
 pkgrel=1
@@ -27,8 +27,8 @@ source=(
     "http://www.nuand.com/fx3/bladeRF_fw_v$_firmver.img")
 
 md5sums=('6f2486be4e6a9d6568815bb7d087820d'
-         '03726935ab8e755f1ab2ead2e6032bb9'
-         'aedc67cff1bf0b7ec237a3c122dfeccd'
+         '4bdfc5543d7167d7f59fcf7d38b28945'
+         'ae639096fa40478c965e765052dd530c'
          '374011a23258b9245ec9ed78bdfba4c1')
 
 # bladeRF-cli can use libtecla (aur)?
