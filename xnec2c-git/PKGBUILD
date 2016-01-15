@@ -1,0 +1,46 @@
+# Maintainer: Kyle Keen <keenerd@gmail.com>
+# Contributor: Vitaliy Berdinskikh ur6lad[at]i.ua
+
+pkgname=xnec2c-git
+_pkgname=xnec2c
+pkgver=6.ee1d731
+pkgrel=1
+pkgdesc="GTK+ Antenna EM Modeling Client"
+arch=('i686' 'x86_64')
+url="http://www.qsl.net/5b4az/pkg/nec2/xnec2c/doc/xnec2c.html"
+license=('GPL')
+depends=('gtk2')
+optdepends=('desktop-file-utils: desktop icons'
+            'gnuplot: to use plotted output/data files')
+source=("git+https://github.com/alexf91/xnec2c.git"
+        "http://bjensen.fedorapeople.org/pkgs/hams/icon/Ham_Icon-1-48.png")
+md5sums=('SKIP'
+         '38378f273628bd9a28d3e5f9ff39fa18')
+
+pkgver() {
+    cd $_pkgname
+    echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+}
+
+build() {
+	cd "$srcdir/$_pkgname"
+	# or add AC_SEARCH_LIBS(clogl, m) to configure.in
+	sed -i 's/1.14/1.15/g' {autogen.sh,aclocal.m4}
+	./autogen.sh
+	./configure --prefix=/usr LDFLAGS=-lm
+	make
+}
+
+package() {
+	cd "$srcdir/$_pkgname"
+	mkdir -p "$pkgdir/usr/share/$_pkgname/"{doc/images,examples}
+	mkdir -p "$pkgdir/usr/share/"{applications,pixmaps}
+
+	make DESTDIR="$pkgdir" install
+
+	install -m644 doc/images/* "$pkgdir/usr/share/$_pkgname/doc/images"
+	rm -r doc/images
+	install -m644 doc/* "$pkgdir/usr/share/$_pkgname/doc"
+	install -m644 examples/* "$pkgdir/usr/share/$_pkgname/examples"
+	install -m644 ../Ham_Icon-1-48.png "$pkgdir/usr/share/pixmaps/$_pkgname.png"
+}
