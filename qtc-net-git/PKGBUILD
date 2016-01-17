@@ -1,0 +1,37 @@
+# Maintainer: Alexander Fasching <fasching.a91@gmail.com>
+
+pkgname=('qtc-net-git' 'perl-qtc-git')
+_gitname=qtc-net
+pkgver=494.8eec76a
+pkgrel=1
+pkgdesc="A short telegram system for Amateur Radio"
+url="https://github.com/zem/qtc-net"
+arch=('i686' 'x86_64')
+license=('GPL3')
+#depends=()
+#makedepends=()
+
+source=("git+https://github.com/zem/qtc-net.git")
+
+md5sums=('SKIP')
+
+pkgver() {
+    cd $_gitname
+    echo $(git rev-list --count HEAD).$(git rev-parse --short HEAD)
+}
+
+build() {
+    cd "$srcdir/$_gitname"
+    make
+}
+
+package_qtc-net-git() {
+    cd "$srcdir/$_gitname"
+    install -d -m 755 -o root cgi-bin "$pkgdir/usr/share/qtc/cgi-bin"
+    install -d -m 755 -o root etc "$pkgdir"
+}
+
+package_perl-qtc-git() {
+    cd "$srcdir/$_gitname"
+    make DESTDIR="$pkgdir" -f Makefile.PL.mk install
+}
