@@ -1,7 +1,7 @@
 # Maintainer: Alexander Fasching <fasching DOT a91 AT gmail DOT com>
 
 pkgname=yate-svn
-pkgver=r6017
+pkgver=r6105
 pkgrel=1
 pkgdesc="Next-generation telephony engine"
 arch=('i686' 'x86_64')

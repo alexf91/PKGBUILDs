@@ -27,8 +27,10 @@ build() {
 
 package_qtc-net-git() {
     cd "$srcdir/$_gitname"
-    install -d -m 755 -o root cgi-bin "$pkgdir/usr/share/qtc/cgi-bin"
-    install -d -m 755 -o root etc "$pkgdir"
+
+    mkdir -p "$pkgdir/usr/share/qtc/"
+    cp -r cgi-bin "$pkgdir/usr/share/qtc/"
+    cp -r etc "$pkgdir"
 }
 
 package_perl-qtc-git() {

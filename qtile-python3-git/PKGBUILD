@@ -1,7 +1,7 @@
 # Maintainer: roger <roger@rogerpc.com.ar>
 
 pkgname=qtile-python3-git
-pkgver=2158.6a473e5
+pkgver=2306.e71a127
 pkgrel=1
 pkgdesc="Python3 full-featured, pure-Python tiling window manager. (git version)"
 arch=('any')

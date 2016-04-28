@@ -1,0 +1,19 @@
+# Maintainer: Alexander Fasching <fasching DOT a91 AT gmail DOT com>
+pkgname=tlaps-bin
+pkgver=1.4.3
+pkgrel=1
+pkgdesc="The TLA+ Proof System (TLAPS) mechanically checks TLA+ proofs"
+arch=('i686' 'x86_64')
+url="http://tla.msr-inria.inria.fr/tlaps/content/Home.html"
+license=('BSD')
+#depends=()
+source=("http://tla.msr-inria.inria.fr/tlaps/dist/current/tlaps-${pkgver}-i686-linux-gnu-inst.bin")
+md5sums=('dfce3e8d5f9418e7a7c07f7efe104a6d')
+
+package(){
+  cd ${srcdir}
+  chmod +x tlaps-${pkgver}-i686-linux-gnu-inst.bin
+  ./tlaps-${pkgver}-i686-linux-gnu-inst.bin -d ${pkgdir}/usr
+}
+
+# vim:set ts=2 sw=2 et:

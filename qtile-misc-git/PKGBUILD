@@ -1,7 +1,7 @@
 # Maintainer: Alexander Fasching <fasching.a91@gmail.com>
 
 pkgname=qtile-misc-git
-pkgver=4.de3fb4e
+pkgver=7.e47ef40
 pkgrel=1
 pkgdesc="Additional layouts and widgets for the qtile window manager"
 arch=('any')

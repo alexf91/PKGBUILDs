@@ -1,7 +1,7 @@
 # Maintainer: Alexander Fasching <fasching DOT a91 AT gmail DOT com>
 
 pkgname=yatebts-svn
-pkgver=r525
+pkgver=r570
 pkgrel=1
 pkgdesc="Next-generation telephony engine"
 arch=('i686' 'x86_64')
