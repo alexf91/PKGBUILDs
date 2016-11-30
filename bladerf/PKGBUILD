@@ -6,11 +6,11 @@
 # keeping it more modular for now though
 
 pkgname=bladerf
-_libver=1.4.3
-_CLIver=1.2.1
-_FPGAver=0.4.1
-_firmver=1.8.0
-pkgver=2015.07
+_libver=1.6.1
+_CLIver=1.3.1
+_FPGAver=0.5.0
+_firmver=2.0.0
+pkgver=2016.04.07
 pkgrel=1
 pkgdesc="Driver, userspace, fpga & firmware for the bladeRF SDR."
 url="https://github.com/Nuand/bladeRF"
@@ -26,10 +26,10 @@ source=(
     "http://nuand.com/fpga/v$_FPGAver/hostedx115.rbf"
     "http://www.nuand.com/fx3/bladeRF_fw_v$_firmver.img")
 
-md5sums=('6f2486be4e6a9d6568815bb7d087820d'
-         '4bdfc5543d7167d7f59fcf7d38b28945'
-         'ae639096fa40478c965e765052dd530c'
-         '374011a23258b9245ec9ed78bdfba4c1')
+md5sums=('50c747c5d379f229c85b164647ea04d2'
+         'af8ea27b4f545113db3d9b6d986f6525'
+         '8af6607afdcf9b00ddae8fbd2cf2eafa'
+         '7b7426c9eb4ccbf0c32e04fd578a75ae')
 
 # bladeRF-cli can use libtecla (aur)?
 
