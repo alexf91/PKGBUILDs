@@ -12,7 +12,7 @@ depends=('libao>=1.0.0' 'libvorbis' 'curl>=7.16.2')
 makedepends=('git')
 provides=('vorbis-tools=1.4.0')
 conflicts=('vorbis-tools')
-source=('vorbis-tools-git::git+https://github.com/xiph/vorbis-tools.git')
+source=('vorbis-tools-git::git+file:///home/alex/projects/vorbis-tools')
 sha1sums=('SKIP')
 
 pkgver() {
