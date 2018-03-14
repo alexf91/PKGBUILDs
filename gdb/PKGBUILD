@@ -1,0 +1,72 @@
+# Maintainer: Alexander Fasching <fasching.a91@gmail.com>
+
+pkgbase=gdb
+pkgname=(gdb gdb-common)
+pkgver=7.7.1
+pkgrel=1
+pkgdesc='The GNU Debugger'
+arch=(x86_64)
+url='http://www.gnu.org/software/gdb/'
+license=(GPL3)
+makedepends=(texinfo python guile2.0 ncurses expat xz)
+source=(https://ftp.gnu.org/gnu/gdb/${pkgname}-${pkgver}.tar.gz{,.sig}
+        0001-Update-proc-service-function-definitions.patch)
+sha1sums=('bb49bdb5781ea62ccdc2ec6869872e1b43168572'
+          'SKIP'
+          '27d890924012f6d424920ade0bc9790e41bbb980')
+validpgpkeys=('F40ADB902B24264AA42E50BF92EDB04BFF325CF3') # Joel Brobecker
+
+prepare() {
+  cd gdb-$pkgver
+  patch -p1 < ../0001-Update-proc-service-function-definitions.patch
+
+  # hack! - libiberty configure tests for header files using "$CPP $CPPFLAGS"
+  sed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" libiberty/configure
+}
+
+build() {
+  cd gdb-$pkgver
+
+  ./configure --prefix=/usr --disable-nls \
+    --with-system-readline \
+    --with-python=/usr/bin/python3 \
+    --with-guile=guile-2.0 \
+    --with-system-gdbinit=/etc/gdb/gdbinit \
+    --disable-werror
+
+  make
+}
+
+package_gdb-common() {
+  depends=(python guile2.0)
+
+  cd gdb-$pkgver
+  make DESTDIR=$pkgdir install
+
+  # resolve conflicts with binutils
+  rm $pkgdir/usr/include/{ansidecl,bfd,bfdlink,dis-asm,symcat}.h
+  rm $pkgdir/usr/share/info/bfd.info
+  rm $pkgdir/usr/lib/{libbfd,libopcodes}.a
+
+  rm -r $pkgdir/usr/{bin,include,lib,share/info,share/man}
+}
+
+package_gdb() {
+  depends=(ncurses expat xz mpfr gdb-common=$pkgver)
+  backup=(etc/gdb/gdbinit)
+
+  cd gdb-$pkgver
+  make DESTDIR=$pkgdir install
+
+  # install "custom" system gdbinit
+  install -dm755 $pkgdir/etc/gdb
+  touch $pkgdir/etc/gdb/gdbinit
+
+  # resolve conflicts with binutils
+  rm $pkgdir/usr/include/{ansidecl,bfd,bfdlink,dis-asm,symcat}.h
+  rm $pkgdir/usr/share/info/bfd.info
+  rm $pkgdir/usr/lib/{libbfd,libopcodes}.a
+
+  # comes from gdb-common
+  rm -r $pkgdir/usr/share/gdb/
+}
