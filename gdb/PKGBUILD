@@ -10,15 +10,75 @@ url='http://www.gnu.org/software/gdb/'
 license=(GPL3)
 makedepends=(texinfo python guile2.0 ncurses expat xz)
 source=(https://ftp.gnu.org/gnu/gdb/${pkgname}-${pkgver}.tar.gz{,.sig}
-        0001-Update-proc-service-function-definitions.patch)
+        0001-Update-proc-service-function-definitions.patch
+        gdb-fortran-main.patch 
+        solve_PATH_MAX_issue.patch
+        gdb-6.5-bz185337-resolve-tls-without-debuginfo-v2.patch
+        gdb-strings.patch
+        ptrace-error-verbosity.patch
+        python-config.patch
+        ppc64le.diff
+        gdb-linaro.diff
+        pr14963.diff
+        CVE-2014-8501.patch
+        CVE-2014-9939.patch
+        CVE-2016-2226.patch
+        CVE-2016-4487_4488.patch
+        CVE-2016-4489.patch
+        CVE-2016-4490.patch
+        CVE-2016-4492_4493.patch
+        CVE-2016-6131.patch
+        CVE-2016-4491-1.patch
+        CVE-2016-4491-2.patch
+        CVE-2016-4491-3.patch)
 sha1sums=('bb49bdb5781ea62ccdc2ec6869872e1b43168572'
           'SKIP'
-          '27d890924012f6d424920ade0bc9790e41bbb980')
+          '27d890924012f6d424920ade0bc9790e41bbb980'
+          'c894528d6be60bc327a962e559481fbadc3bb271'
+          '37cabc20a3d8fab7092ec8074ba510b066b0419a'
+          '512ff1245728462fcdefefa76e7092a70ba1d9c1'
+          '1aca7fad4dd3b92466ab5c82c2dacfc20d8b45ac'
+          '05cd83f1caa8e4df3d03a0e46daf34f2a67f3a52'
+          'c151836420f6f5a727fd2b64d3b619e32fbe5807'
+          '81289d4ccf0f53b865e72c64416682b5693180a7'
+          '429f6d556a40385dc4e64dadec309aef14f988d8'
+          '2ae8096b473720d58f27201d4c0ed713541986e3'
+          'e4bb0cd1358fb9a01542837baa3b51bbd42ec7c6'
+          '0dbcbd760cfec4a564b1ab1fdf75fa4dcfb05e35'
+          'f93e1528f71d182307236f5682a8f518e02c0d13'
+          '6a0f7b662c275aa3aa2ff6ecfa3e3c434fa24b72'
+          'df9963f3ba13e62f508258f778d4bf39eb9f0f99'
+          '491cb2135287ccf51c7ae89d2df4b020d717734a'
+          'e8af24f850c0015afe39492bd687269225c5416f'
+          'cb9ed5e54a71030d685011dd0caf48593384f584'
+          'b567ec76f22b85d4d7ed5b67d68fe1ff081f775d'
+          'b085679ee53542e6ae06772aa573d0e7e5004d48'
+          '6c7ebbbae7140cfe2c0f8b132953ca589884ed67')
 validpgpkeys=('F40ADB902B24264AA42E50BF92EDB04BFF325CF3') # Joel Brobecker
 
 prepare() {
   cd gdb-$pkgver
   patch -p1 < ../0001-Update-proc-service-function-definitions.patch
+  patch -p1 < ../gdb-fortran-main.patch 
+  patch -p1 < ../solve_PATH_MAX_issue.patch
+  patch -p1 < ../gdb-6.5-bz185337-resolve-tls-without-debuginfo-v2.patch
+  patch -p1 < ../gdb-strings.patch
+  patch -p1 < ../ptrace-error-verbosity.patch
+  patch -p1 < ../python-config.patch
+  patch -p1 < ../ppc64le.diff
+  patch -p1 < ../gdb-linaro.diff
+  patch -p1 < ../pr14963.diff
+  patch -p1 < ../CVE-2014-8501.patch
+  patch -p1 < ../CVE-2014-9939.patch
+  patch -p1 < ../CVE-2016-2226.patch
+  patch -p1 < ../CVE-2016-4487_4488.patch
+  patch -p1 < ../CVE-2016-4489.patch
+  patch -p1 < ../CVE-2016-4490.patch
+  patch -p1 < ../CVE-2016-4492_4493.patch
+  patch -p1 < ../CVE-2016-6131.patch
+  patch -p1 < ../CVE-2016-4491-1.patch
+  patch -p1 < ../CVE-2016-4491-2.patch
+  patch -p1 < ../CVE-2016-4491-3.patch
 
   # hack! - libiberty configure tests for header files using "$CPP $CPPFLAGS"
   sed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" libiberty/configure

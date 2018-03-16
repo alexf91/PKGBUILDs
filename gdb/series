@@ -1,0 +1,25 @@
+gdb-fortran-main.patch 
+#linuxthreads_signal_handling.patch
+solve_PATH_MAX_issue.patch
+gdb-6.5-bz185337-resolve-tls-without-debuginfo-v2.patch
+
+# Ubuntu/Linaro
+gdb-strings.patch
+ptrace-error-verbosity.patch
+python-config.patch
+#elf-auxv-diff
+ppc64le.diff
+
+gdb-linaro.diff
+pr14963.diff
+CVE-2014-8501.patch
+CVE-2014-9939.patch
+CVE-2016-2226.patch
+CVE-2016-4487_4488.patch
+CVE-2016-4489.patch
+CVE-2016-4490.patch
+CVE-2016-4492_4493.patch
+CVE-2016-6131.patch
+CVE-2016-4491-1.patch
+CVE-2016-4491-2.patch
+CVE-2016-4491-3.patch
