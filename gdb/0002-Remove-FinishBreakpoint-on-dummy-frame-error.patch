@@ -1,0 +1,29 @@
+From dbf67629f647ec564315aea94a4c40c6aa3d7915 Mon Sep 17 00:00:00 2001
+From: Alexander Fasching <fasching.a91@gmail.com>
+Date: Wed, 21 Mar 2018 20:15:58 +0100
+Subject: [PATCH 2/2] Remove FinishBreakpoint on dummy frame error
+
+---
+ gdb/python/py-finishbreakpoint.c | 6 ------
+ 1 file changed, 6 deletions(-)
+
+diff --git a/gdb/python/py-finishbreakpoint.c b/gdb/python/py-finishbreakpoint.c
+index 712a9ee5a9..c4cb601cba 100644
+--- a/gdb/python/py-finishbreakpoint.c
++++ b/gdb/python/py-finishbreakpoint.c
+@@ -198,12 +198,6 @@ bpfinishpy_init (PyObject *self, PyObject *args, PyObject *kwargs)
+ 				 "meaningful in the outermost "
+ 				 "frame."));
+ 	    }
+-	  else if (get_frame_type (prev_frame) == DUMMY_FRAME)
+-	    {
+-	      PyErr_SetString (PyExc_ValueError,
+-			       _("\"FinishBreakpoint\" cannot "
+-				 "be set on a dummy frame."));
+-	    }
+ 	  else
+ 	    {
+ 	      frame_id = get_frame_id (prev_frame);
+-- 
+2.16.2
+

@@ -1,7 +1,7 @@
 From 42c11ad29ab71f3d7aef23c5239d6c1761ba5f9c Mon Sep 17 00:00:00 2001
 From: Alexander Fasching <fasching.a91@gmail.com>
 Date: Wed, 14 Mar 2018 11:21:09 +0100
-Subject: [PATCH] Update proc-service function definitions
+Subject: [PATCH 1/2] Update proc-service function definitions
 
 ---
  gdb/aarch64-linux-nat.c           | 2 +-

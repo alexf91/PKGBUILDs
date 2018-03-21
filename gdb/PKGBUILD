@@ -10,15 +10,18 @@ url='http://www.gnu.org/software/gdb/'
 license=(GPL3)
 makedepends=(texinfo python guile2.0 ncurses expat xz)
 source=(https://ftp.gnu.org/gnu/gdb/${pkgname}-${pkgver}.tar.gz{,.sig}
-        0001-Update-proc-service-function-definitions.patch)
+        0001-Update-proc-service-function-definitions.patch
+        0002-Remove-FinishBreakpoint-on-dummy-frame-error.patch)
 sha1sums=('bb49bdb5781ea62ccdc2ec6869872e1b43168572'
           'SKIP'
-          '27d890924012f6d424920ade0bc9790e41bbb980')
+          '14de7eb60c70b5e5f29f922c37bbe06e34498c94'
+          'b1e4f0a41521e83dccc24e80aa61a56c368d49b8')
 validpgpkeys=('F40ADB902B24264AA42E50BF92EDB04BFF325CF3') # Joel Brobecker
 
 prepare() {
   cd gdb-$pkgver
   patch -p1 < ../0001-Update-proc-service-function-definitions.patch
+  patch -p1 < ../0002-Remove-FinishBreakpoint-on-dummy-frame-error.patch
 
   # hack! - libiberty configure tests for header files using "$CPP $CPPFLAGS"
   sed -i "/ac_cpp=/s/\$CPPFLAGS/\$CPPFLAGS -O2/" libiberty/configure
