@@ -13,15 +13,11 @@ makedepends=()
 conflicts=()
 replaces=()
 backup=()
-source=("https://github.com/DynamoRIO/dynamorio/releases/download/cronbuild-${pkgver}/DynamoRIO-x86_64-Linux-${pkgver}-0.tar.gz"
-        "dynamorio.sh")
-sha256sums=('0aa45ae42641a94869152bfb539ba7e2aa51e481c641cb98f67f84cb724ff744'
-            'ea4e17b2b85cdf84e4b54e1c9070b3d82a76b082abdc7d6ded0694caf1d73dde')
+source=("https://github.com/DynamoRIO/dynamorio/releases/download/cronbuild-${pkgver}/DynamoRIO-x86_64-Linux-${pkgver}-0.tar.gz")
+sha256sums=('0aa45ae42641a94869152bfb539ba7e2aa51e481c641cb98f67f84cb724ff744')
 
 package() {
   cd "${srcdir}/DynamoRIO-x86_64-Linux-${pkgver}-0"
   mkdir -p "${pkgdir}/opt/dynamorio"
   cp -r "${srcdir}/DynamoRIO-x86_64-Linux-${pkgver}-0"/* "${pkgdir}/opt/dynamorio"
-
-  install -m 644 "${srcdir}/dynamorio.sh" "${pkgdir}/opt/dynamorio/"
 }
