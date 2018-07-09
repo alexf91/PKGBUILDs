@@ -1,11 +1,11 @@
 # Maintainer: Alexander Fasching <fasching.a91@gmail.com>
 
-pkgname=dynamorio-git
-pkgver=7.0.17721.r0.gd224ab16
+pkgname=dynamorio-bin
+pkgver=7.0.17721
 pkgrel=1
 pkgdesc="A dynamic binary instrumentation framework"
 url="http://dynamorio.org"
-arch=('x86_64' 'i686')
+arch=('x86_64')
 license=('BSD')
 depends=()
 optdepends=()
@@ -13,25 +13,15 @@ makedepends=()
 conflicts=()
 replaces=()
 backup=()
-source=("${pkgname}::git+https://github.com/DynamoRIO/dynamorio.git")
-sha256sums=('SKIP')
-
-pkgver() {
-  cd "$pkgname"
-  git describe --long --tags | sed 's/^cronbuild-//;s/\([^-]*-g\)/r\1/;s/-/./g'
-}
-
-build() {
-  cd "${srcdir}/${pkgname}"
-  mkdir build
-  cd build
-  cmake -DCMAKE_BUILD_TYPE=Release -DDISABLE_WARNINGS=ON ..
-  make package
-}
+source=("https://github.com/DynamoRIO/dynamorio/releases/download/cronbuild-${pkgver}/DynamoRIO-x86_64-Linux-${pkgver}-0.tar.gz"
+        "dynamorio.sh")
+sha256sums=('0aa45ae42641a94869152bfb539ba7e2aa51e481c641cb98f67f84cb724ff744'
+            'ea4e17b2b85cdf84e4b54e1c9070b3d82a76b082abdc7d6ded0694caf1d73dde')
 
 package() {
-  mkdir -p "${pkgdir}/opt/dynamicrio"
-  cd "${pkgdir}/opt/dynamicrio"
+  cd "${srcdir}/DynamoRIO-x86_64-Linux-${pkgver}-0"
+  mkdir -p "${pkgdir}/opt/dynamorio"
+  cp -r "${srcdir}/DynamoRIO-x86_64-Linux-${pkgver}-0"/* "${pkgdir}/opt/dynamorio"
 
-  tar xf $(ls "${srcdir}/${pkgname}"/build/DynamoRIO-*.tar.gz) --strip 1
+  install -m 644 "${srcdir}/dynamorio.sh" "${pkgdir}/opt/dynamorio/"
 }
