@@ -1,7 +1,7 @@
 # Maintainer: Nick Østergaard <oe.nick at gmail dot com>
 
 pkgname=kicad-git
-pkgver=r9486.28f1209ce
+pkgver=r10614.84427f463
 pkgrel=1
 pkgdesc="Electronic schematic and printed circuit board (PCB) design tools"
 arch=('i686' 'x86_64')
@@ -13,7 +13,7 @@ optdepends=('kicad-library: for footprints')
 conflicts=('kicad' 'kicad-bzr')
 provides=('kicad')
 install=kicad.install
-source=("${pkgname}"'::git+git://git.launchpad.net/kicad#tag=5.0.0-rc2')
+source=("${pkgname}"'::git+git://git.launchpad.net/kicad#tag=5.0.0')
 md5sums=('SKIP')
 
 pkgver() {
@@ -28,6 +28,7 @@ build() {
   cmake .. -DCMAKE_BUILD_TYPE=Release \
               -DCMAKE_INSTALL_PREFIX=/usr \
               -DCMAKE_INSTALL_LIBDIR=lib \
+              -DKICAD_USE_OCE=OFF \
               -DKICAD_USE_OCC=ON \
               -DBUILD_GITHUB_PLUGIN=ON \
               -DKICAD_SCRIPTING=ON \
