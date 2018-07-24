@@ -1,13 +1,14 @@
 # Maintainer: Alexander Fasching <fasching.a91@gmail.com>
 
 pkgname=gr-nordic-git
-pkgver=c46860
+pkgver=63642e
 pkgrel=1
 pkgdesc="GNU Radio module for the Nordic Semiconductor nRF24L Enhanced Shockburst protocol."
 arch=('i686' 'x86_64')
 url="https://github.com/BastilleResearch/gr-nordic"
 license=('GPL')
 depends=('gnuradio' 'swig')
+optdepends=('wireshark')
 makedepends=('git' 'cmake' 'boost' 'python2-cheetah')
 provides=('gr-nordic')
 source=('git+https://github.com/alexf91/gr-nordic')
@@ -35,6 +36,9 @@ build() {
 package() {
   cd "$srcdir/$_gitname/build/"
   make DESTDIR=${pkgdir} install
+
+  cd "$srcdir/$_gitname/wireshark/"
+  install -D -m 0644 nordic_dissector.lua ${pkgdir}/usr/share/gr-nordic/nordic_dissector.lua
 }
 
 # vim:set ts=2 sw=2 et:
