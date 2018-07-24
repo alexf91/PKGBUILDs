@@ -1,0 +1,40 @@
+# Maintainer: Alexander Fasching <fasching.a91@gmail.com>
+
+pkgname=gr-nordic-git
+pkgver=c46860
+pkgrel=1
+pkgdesc="GNU Radio module for the Nordic Semiconductor nRF24L Enhanced Shockburst protocol."
+arch=('i686' 'x86_64')
+url="https://github.com/BastilleResearch/gr-nordic"
+license=('GPL')
+depends=('gnuradio' 'swig')
+makedepends=('git' 'cmake' 'boost' 'python2-cheetah')
+provides=('gr-nordic')
+source=('git+https://github.com/alexf91/gr-nordic')
+md5sums=('SKIP')
+_gitname="gr-nordic"
+
+pkgver() {
+  cd $_gitname
+  git describe --always | sed 's|-|.|g; s|^.||'
+}
+
+build() {
+  cd "$srcdir/$_gitname"
+  mkdir -p build
+  cd build
+  cmake \
+    -DPYTHON_EXECUTABLE=$(which python2) \
+    -DPYTHON_INCLUDE_DIR=$(echo /usr/include/python2*) \
+    -DPYTHON_LIBRARY=$(echo /usr/lib/libpython2.*.so) \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    ..
+  make
+}
+
+package() {
+  cd "$srcdir/$_gitname/build/"
+  make DESTDIR=${pkgdir} install
+}
+
+# vim:set ts=2 sw=2 et:
