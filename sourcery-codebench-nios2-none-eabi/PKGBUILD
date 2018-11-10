@@ -1,0 +1,23 @@
+# Maintainer: Alexander Fasching <fasching.a91@gmail.com>
+
+pkgname=sourcery-codebench-nios2-none-eabi
+pkgver=2018.05
+_pkgnum=4
+pkgrel=1
+pkgdesc="Sourcery CodeBench Lite for NIOS 2 NONE EABI"
+arch=('i686' 'x86_64')
+url="http://www.mentor.com/embedded-software/sourcery-tools/sourcery-codebench/editions/lite-edition/"
+license=('custom')
+options=(!strip)
+source=("https://sourcery.mentor.com/GNUToolchain/package15409/public/nios2-elf/sourceryg++-$pkgver-$_pkgnum-nios2-elf-i686-pc-linux-gnu.tar.bz2")
+md5sums=("00a0ce873f2c2fc472a6747c083e2460")
+
+if test "$CARCH" == x86_64; then
+  depends=(lib32-glibc)
+fi
+
+package() {
+  cd $srcdir/sourceryg++-$pkgver
+  mkdir -p $pkgdir/opt/sourcery-codebench-nios2-none-eabi
+  cp -a * $pkgdir/opt/sourcery-codebench-nios2-none-eabi
+}
