@@ -1,0 +1,28 @@
+# Maintainer: Alexander Fasching <fasching.a91@gmail.com>
+
+pkgname=smlunit-mlton-git
+pkgver=r100.599d839
+pkgrel=1
+pkgdesc="Unit testing framework for Standard ML"
+url="https://github.com/smlsharp/SMLUnit"
+arch=('x86_64')
+license=('BSD')
+depends=('mlton')
+source=("${pkgname}::git+https://github.com/smlsharp/SMLUnit.git")
+sha1sums=('SKIP')
+
+pkgver() {
+  cd "$pkgname"
+  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+  cd "${srcdir}"/${pkgname}
+  mkdir -p bin
+  make -f Makefile.mlton LIBDIR="${pkgdir}/usr/lib/mlton/sml" smlunit-lib-nodoc
+}
+
+package() {
+  cd "${srcdir}"/${pkgname}
+  make -f Makefile.mlton LIBDIR="${pkgdir}/usr/lib/mlton/sml" install-nodoc
+}
